@@ -292,6 +292,7 @@ $max: max-width;
 html, body {
   padding: 0;
   margin: 0;
+  overflow-x: hidden;
 }
 
 article, aside, details, figcaption, figure, footer, header, hgroup, main, nav, section, summary {
@@ -440,7 +441,7 @@ $class-type: unquote(".");
   #{$class-type}#{$namespace}two-thirds      { width: 66.666%; }
 
   /* Quarters */
-  #{$class-type}#{$namespace}one-quarter     { width: 25%; }
+  #{$class-type}#{$namespace}one-quarter     { width: 25%;     padding-right: 2em; }
   #{$class-type}#{$namespace}two-quarters    { width: 50%; }
   #{$class-type}#{$namespace}three-quarters  { width: 75%; }
 
@@ -735,9 +736,7 @@ body {
     margin-right: auto;
     margin: 0 auto;
     height: 100%;
-    position: relative;
     padding: 0 2.55555em;
-    overflow: hidden;
 }
 
 .main-content {
@@ -1893,7 +1892,7 @@ font-size: 20px;
 .site-header__logo-link {
   max-width: $logoMaxWidth;
   margin: 0 auto;
-  display: inline-block;
+    display: block;
 }
 
 .site-header .logo {
@@ -1958,19 +1957,15 @@ display: block !important;
 .site-nav {
   cursor: default;
   float: left;
-  margin-left: 26%;
+  margin-left: 20%;
   margin-bottom: 2em;
 
   li {
-    margin: 0;
+    margin: 1em;
     display: block;
   }
 
-  > li {
-    position: relative;
-    display: inline-block;
-    margin: 1em 1.3em 0 0em;
-  }
+
 }
 
 /*================ Home to hamburger and cart that toggle drawers ================*/
@@ -2016,24 +2011,79 @@ display: block !important;
 }
 
 
-.meganav {
-    position: absolute;
-    right: 0;
-    left: 0;
-    z-index: 1000;
-    display: none;
-    padding-top: 32px;
-    padding-bottom: 22px;
-    margin-top: -16px;
-    color: #292929;
-    background: #fff;
-    -webkit-transform: scaleY(0.95);
-    -ms-transform: scaleY(0.95);
-    transform: scaleY(0.95);
-    box-shadow: 0 1px 1px rgba(41,41,41,0.2);
-    -webkit-transform-origin: 0 0;
-    -ms-transform-origin: 0 0;
-    transform-origin: 0 0;
+
+
+.dropdown-menu > .sub-nav {
+  position: absolute;
+  top: 177px;
+  left: 0;
+  display: none;
+  width: 100%;
+  background-color: white;
+  justify-content: space-between;
+  overflow:visible !important;
+  z-index: 100;
+  background-color: white;
+
+
+
+}
+
+.sub-nav {
+    box-sizing: border-box;
+    padding: 20px;
+}
+
+.sub-nav--container{
+  max-width: 70em;
+margin: 0 auto;
+display: -webkit-box;
+display: -ms-flexbox;
+padding: 30px 45px 45px 45px;
+-webkit-box-pack: justify;
+-ms-flex-pack: justify;
+justify-content: space-between;
+
+}
+
+.cate-list {
+  list-style: none;
+ margin: 0;
+ padding: 0;
+ li {
+   margin: .5em 0 0;
+text-align: left;
+ }
+}
+
+.cate-name  {
+  font-weight: 700;
+  text-align: left;
+}
+
+.cate-featured {
+  flex-direction: column;
+  transform: translateY(20px);
+  z-index: 2;
+    margin: 0 !important;
+    padding-left: 10px;
+
+}
+
+
+.featured-thumbnail {
+  height: 200px;
+}
+
+.cate-featured > .featured-left::after {
+  display: inline-block;
+  content: "";
+  width: 128px;
+  height: 36px;
+  border: 2px solid #e4ccab;
+
+  background-color: transparent;
+  transform: translate(6px, -34px);
 }
 
 
@@ -2271,9 +2321,7 @@ display: block !important;
   }
 }
 
-#PageContainer {
-  overflow: hidden;
-}
+
 
 .is-moved-by-drawer {
   @include promote-layer();

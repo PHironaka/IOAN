@@ -634,6 +634,12 @@ slate.Variants = (function() {
 /*============================================================================
   Drawer modules
 ==============================================================================*/
+$(document).ready(function() {
+    $("li.site-nav").hover(function () {
+				$(this).children(".menu-hover-wrapper-background").toggle();
+		});
+});
+
 theme.Drawers = (function() {
   function Drawer(id, position, options) {
     var defaults = {
@@ -2694,6 +2700,8 @@ theme.SlideshowSection.prototype = _.assignIn({}, theme.SlideshowSection.prototy
     $(this.slideshow).slick('slickPlay');
   }
 });
+
+
 
 
 $(document).ready(function() {
