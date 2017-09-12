@@ -906,25 +906,25 @@
 
             <li><!--Category: FOR LADIES-->
               <div class="cate-name">
-                <a class="link" href="#for-ladies">Clean Basics</a>
+                <a class="link" href="#for-ladies">Mens Collection</a>
               </div>
               <ul class="cate-list">
-                <li><a href="#dress">Dress</a></li>
-                <li><a href="#shirt">T-shirt</a></li>
-                <li><a href="#top">Top</a></li>
-                <li><a href="#bottom">Bottom</a></li>
+                <li><a href="#dress">Clean Basics</a></li>
+                <li><a href="#shirt">Clean Pullovers</a></li>
+                <li><a href="#top">Madras Shirts</a></li>
+                <li><a href="#bottom">Alpalca </a></li>
               </ul>
             </li>
 
             <li><!--Sub-menu category: FOR MEN-->
               <div class="cate-name"><!--Category: FOR MEN-->
-                <a class="link" href="#for-men">Clean Pullovers</a>
+                <a class="link" href="#for-men">Womens Collection </a>
               </div>
               <ul class="cate-list">
-                <li><a href="#dress">Dress</a></li>
-                <li><a href="#shirt">T-shirt</a></li>
-                <li><a href="#top">Top</a></li>
-                <li><a href="#bottom">Bottom</a></li>
+                <li><a href="#dress">Clean Basics</a></li>
+                <li><a href="#shirt">Clean Pullovers</a></li>
+                <li><a href="#top">Madras Shirts</a></li>
+                <li><a href="#bottom">Alpalca</a></li>
               </ul>
             </li>
 
@@ -1032,25 +1032,27 @@
 
             <li><!--Category: FOR LADIES-->
               <div class="cate-name">
-                <a class="link" href="#for-ladies">Locations</a>
+                <a class="link" href="#for-ladies">Featured Retailers</a>
               </div>
               <ul class="cate-list">
-                <li><a href="#dress">Dress</a></li>
-                <li><a href="#shirt">T-shirt</a></li>
-                <li><a href="#top">Top</a></li>
-                <li><a href="#bottom">Bottom</a></li>
+                <li><a href="https://pilgrimsurfsupply.com/" target="_blank">Pilgrim Surf + Supply</a></li>
+                <li><a href="https://www.merci-merci.com/fr/" target="_blank">Merci</a></li>
+                <li><a href="https://www.ronherman.com/" target="_blank">Ron Herman</a></li>
+                <li><a href="http://www.oliveandoliverhawaii.com/" target="_blank">Oliver Men's Shop</a></li>
+                <li><a href="https://www.mohawkgeneralstore.com/" target="_blank">Mohawk General Store</a></li>
+                <li><a href="https://loadingbay.co.za/" target="_blank">Loading Bay</a></li>
               </ul>
             </li>
 
             <li class="cate-featured">
-              <h4>Abbot Kinney</h4>
+              <h4>1121 Abbot Kinney Los Angeles</h4>
 
               <img class="featured-thumbnail" src="https://cdn.shopify.com/s/files/1/2140/7529/collections/IOAN_Store-84_grande.jpg?v=1504107972" alt="">
 
             </li>
             <!--Sub-menu category: FEATURED-->
             <li class="cate-featured">
-              <h4>San Francisco</h4>
+              <h4>523 Hayes St. San Francisco</h4>
               <img class="featured-thumbnail" src="https://cdn.shopify.com/s/files/1/2140/7529/collections/IOAN_Store-84_grande.jpg?v=1504107972" alt="">
 
             </li>
@@ -1093,7 +1095,54 @@
 
 
 
+          <div class="grid__item small--one-half medium-up--one-quarter text-right site-header__icons{% if shop.customer_accounts_enabled %} site-header__icons--plus{% endif %}">
+              <div class="site-header__icons-wrapper">
+                {% if section.settings.align_logo == 'left' %}
+                  <div class="site-header__search small--hide">
+                    {% include 'search-bar' %}
+                  </div>
+                {% endif %}
 
+                <button type="button" class="btn--link site-header__search-toggle js-drawer-open-top medium-up--hide">
+                  {% include 'search-bar' %}
+                </button>
+
+                {% if shop.customer_accounts_enabled %}
+                  {% if customer %}
+                    <a href="/account" class="site-header__account">
+                      {% include 'icon-login' %}
+                      <span class="icon__fallback-text">{{ 'layout.customer.account' | t }}</span>
+                    </a>
+                  {% else %}
+                    <a href="/account/login" class="site-header__account">
+                      {% include 'icon-login' %}
+                      <span class="icon__fallback-text">{{ 'layout.customer.log_in' | t }}</span>
+                    </a>
+                  {% endif %}
+                {% endif %}
+
+                <a href="/cart" class="site-header__cart">
+                  {% include 'icon-cart' %}
+                  <span class="visually-hidden">{{ 'layout.cart.title' | t }}</span>
+                  <span class="icon__fallback-text">{{ 'layout.cart.title' | t }}</span>
+                  {% if cart.item_count > 0 %}
+                    <div id="CartCount" class="site-header__cart-count">
+                      <span>{{ cart.item_count }}</span>
+                      <span class="icon__fallback-text medium-up--hide">{{ 'layout.cart.items_count' | t: count: cart.item_count }}</span>
+                    </div>
+                  {% endif %}
+                </a>
+
+                {% unless linklists[section.settings.main_linklist] == blank %}
+                  <button type="button" class="btn--link site-header__menu js-mobile-nav-toggle mobile-nav--open">
+                    {% include 'icon-hamburger' %}
+                    {% include 'icon-close' %}
+                    <span class="icon__fallback-text">{{ 'layout.navigation.toggle' | t }}</span>
+                  </button>
+                {% endunless %}
+              </div>
+
+            </div>
 
 
 
