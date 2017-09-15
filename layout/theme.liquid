@@ -154,9 +154,14 @@
       <div id="CartContainer"></div>
     </div>
   {% endif %}
-  <div id="PageContainer" class="is-moved-by-drawer">
+  <div id="PageContainer" class="  {% if template == 'index' %} home-header{% else %} {% endif %} is-moved-by-drawer">
     <header class="site-header" role="banner">
       <div class="wrapper">
+
+                        <a href="/cart" class="site-header__cart">
+                          <span>Cart</span>{% if cart.item_count > 0 %}  <span>({{ cart.item_count }})</span>  {% endif %}
+
+                        </a>
 
         <div class="grid--full grid--table">
 
@@ -906,25 +911,24 @@
 
             <li><!--Category: FOR LADIES-->
               <div class="cate-name">
-                <a class="link" href="#for-ladies">Mens Collection</a>
+                <a class="link" href="#for-ladies">Clean Basics</a>
               </div>
               <ul class="cate-list">
-                <li><a href="#dress">Clean Basics</a></li>
-                <li><a href="#shirt">Clean Pullovers</a></li>
-                <li><a href="#top">Madras Shirts</a></li>
-                <li><a href="#bottom">Alpalca </a></li>
+                <li><a href="#dress">T shirts</a></li>
+                <li><a href="#shirt">Polos</a></li>
+                <li><a href="#top">Henleys</a></li>
+                <li><a href="#bottom">Tanks </a></li>
               </ul>
             </li>
 
             <li><!--Sub-menu category: FOR MEN-->
               <div class="cate-name"><!--Category: FOR MEN-->
-                <a class="link" href="#for-men">Womens Collection </a>
+                <a class="link" href="#for-men">Clean Pullovers </a>
               </div>
               <ul class="cate-list">
-                <li><a href="#dress">Clean Basics</a></li>
-                <li><a href="#shirt">Clean Pullovers</a></li>
-                <li><a href="#top">Madras Shirts</a></li>
-                <li><a href="#bottom">Alpalca</a></li>
+                <li><a href="#dress">Sweatshirts</a></li>
+                <li><a href="#shirt">Vests</a></li>
+                <li><a href="#top">Sweaters</a></li>
               </ul>
             </li>
 
@@ -933,22 +937,21 @@
                 <a class="link" href="#for-girls">Madras Shirts</a>
               </div>
               <ul class="cate-list">
-                <li><a href="#dress">Dress</a></li>
-                <li><a href="#shirt">T-shirt</a></li>
-                <li><a href="#top">Top</a></li>
-                <li><a href="#bottom">Bottom</a></li>
+                <li><a href="#dress">Heavyweight Shirts</a></li>
+                <li><a href="#shirt">Long Sleeve </a></li>
+                <li><a href="#top">Short Sleeve</a></li>
               </ul>
             </li>
 
             <li><!--Sub-menu category: FOR BOYS-->
               <div class="cate-name">
-                <a class="link" href="#for-boys">Alpalca Sweaters</a>
+                <a class="link" href="#for-boys">Clean Bottoms</a>
               </div>
               <ul class="cate-list">
-                <li><a href="#dress">Dress</a></li>
-                <li><a href="#shirt">T-shirt</a></li>
-                <li><a href="#top">Top</a></li>
-                <li><a href="#bottom">Bottom</a></li>
+                <li><a href="#dress">Chinos</a></li>
+                <li><a href="#shirt">Canvas Pants</a></li>
+                <li><a href="#top">Sweatpants</a></li>
+                <li><a href="#bottom">Fleece Shorts</a></li>
               </ul>
             </li>
             <!--Sub-menu category: FEATURED-->
@@ -970,10 +973,10 @@
                 <a class="link" href="#for-ladies">Clean Basics</a>
               </div>
               <ul class="cate-list">
-                <li><a href="#dress">Dress</a></li>
-                <li><a href="#shirt">T-shirt</a></li>
-                <li><a href="#top">Top</a></li>
-                <li><a href="#bottom">Bottom</a></li>
+                <li><a href="#dress">T shirts</a></li>
+                <li><a href="#shirt">Long Sleeves</a></li>
+                <li><a href="#top">Dresses</a></li>
+                <li><a href="#bottom">Tanks </a></li>
               </ul>
             </li>
 
@@ -982,10 +985,9 @@
                 <a class="link" href="#for-men">Clean Pullovers</a>
               </div>
               <ul class="cate-list">
-                <li><a href="#dress">Dress</a></li>
-                <li><a href="#shirt">T-shirt</a></li>
-                <li><a href="#top">Top</a></li>
-                <li><a href="#bottom">Bottom</a></li>
+                <li><a href="#dress">Sweatshirts</a></li>
+                <li><a href="#shirt">Vests</a></li>
+                <li><a href="#top">Sweaters</a></li>
               </ul>
             </li>
 
@@ -1022,11 +1024,11 @@
           </ul>
   								</li>
   								<li class="site-nav">
-  									<a class="site-nav__link" href="">Goods</a>
+  									<a class="site-nav__link" href="/collections/objects">Goods</a>
 
   								</li>
                   <li class="site-nav dropdown-menu">
-  									<a class="site-nav__link" href="/collections/womens">Shops</a>
+  									<a class="site-nav__link" href="#">IOAN shops</a>
                     <ul class="sub-nav">
 <div class="sub-nav--container">
 
@@ -1070,9 +1072,37 @@
 
   								</li>
 
+
+
   							</ul>
 
+                <div class="site-header__icons-wrapper">
 
+
+                  {% if shop.customer_accounts_enabled %}
+                    {% if customer %}
+                      <a href="/account" class="site-header__account">
+                        {% include 'icon-login' %}
+                        <span class="icon__fallback-text">{{ 'layout.customer.account' | t }}</span>
+                      </a>
+                    {% else %}
+                      <a href="/account/login" class="site-header__account">
+                        {% include 'icon-login' %}
+                        <span class="icon__fallback-text">{{ 'layout.customer.log_in' | t }}</span>
+                      </a>
+                    {% endif %}
+                  {% endif %}
+
+
+
+                  {% unless linklists[section.settings.main_linklist] == blank %}
+                    <button type="button" class="btn--link site-header__menu js-mobile-nav-toggle mobile-nav--open">
+                      {% include 'icon-hamburger' %}
+                      {% include 'icon-close' %}
+                      <span class="icon__fallback-text">{{ 'layout.navigation.toggle' | t }}</span>
+                    </button>
+                  {% endunless %}
+                </div>
 
                                       <!-- //site-nav -->
                                     </div>
@@ -1089,60 +1119,19 @@
 
 
 
+
+
+
                                 </nav>
+
+
+
 
           </div>
 
 
 
-          <div class="grid__item small--one-half medium-up--one-quarter text-right site-header__icons{% if shop.customer_accounts_enabled %} site-header__icons--plus{% endif %}">
-              <div class="site-header__icons-wrapper">
-                {% if section.settings.align_logo == 'left' %}
-                  <div class="site-header__search small--hide">
-                    {% include 'search-bar' %}
-                  </div>
-                {% endif %}
 
-                <button type="button" class="btn--link site-header__search-toggle js-drawer-open-top medium-up--hide">
-                  {% include 'search-bar' %}
-                </button>
-
-                {% if shop.customer_accounts_enabled %}
-                  {% if customer %}
-                    <a href="/account" class="site-header__account">
-                      {% include 'icon-login' %}
-                      <span class="icon__fallback-text">{{ 'layout.customer.account' | t }}</span>
-                    </a>
-                  {% else %}
-                    <a href="/account/login" class="site-header__account">
-                      {% include 'icon-login' %}
-                      <span class="icon__fallback-text">{{ 'layout.customer.log_in' | t }}</span>
-                    </a>
-                  {% endif %}
-                {% endif %}
-
-                <a href="/cart" class="site-header__cart">
-                  {% include 'icon-cart' %}
-                  <span class="visually-hidden">{{ 'layout.cart.title' | t }}</span>
-                  <span class="icon__fallback-text">{{ 'layout.cart.title' | t }}</span>
-                  {% if cart.item_count > 0 %}
-                    <div id="CartCount" class="site-header__cart-count">
-                      <span>{{ cart.item_count }}</span>
-                      <span class="icon__fallback-text medium-up--hide">{{ 'layout.cart.items_count' | t: count: cart.item_count }}</span>
-                    </div>
-                  {% endif %}
-                </a>
-
-                {% unless linklists[section.settings.main_linklist] == blank %}
-                  <button type="button" class="btn--link site-header__menu js-mobile-nav-toggle mobile-nav--open">
-                    {% include 'icon-hamburger' %}
-                    {% include 'icon-close' %}
-                    <span class="icon__fallback-text">{{ 'layout.navigation.toggle' | t }}</span>
-                  </button>
-                {% endunless %}
-              </div>
-
-            </div>
 
 
 
@@ -1156,7 +1145,7 @@
 
 
 
-    <main class="wrapper main-content" role="main">
+    <main class=" main-content" role="main">
 
       {{ content_for_layout }}
 
@@ -1175,9 +1164,9 @@
 
   <script type="text/javascript">
   $('.site-nav .dropdown-menu').hover(function() {
-    $(this).find('.sub-nav').stop(true, true).delay(200).fadeIn(300);
+    $(this).find('.sub-nav').stop(true, true).delay(200).fadeIn(200);
   }, function() {
-    $(this).find('.sub-nav').stop(true, true).delay(200).fadeOut(300);
+    $(this).find('.sub-nav').stop(true, true).delay(200).fadeOut(200);
   });
   </script>
   <script>

@@ -15,16 +15,28 @@
   {%- assign social_icons = true -%}
 {% endif %}
 
-<footer class="site-footer" role="contentinfo">
+<footer class="grid__item site-footer" role="contentinfo">
   <div class="wrapper">
 
   <div class="page-width">
 
 
-    <div class="large--four-fifths">
+      <div class="grid__item{% if section.settings.footer_newsletter_enable and section.settings.footer_linklist != blank %} medium-up--one-quarter{% elsif section.settings.footer_linklist == blank and section.settings.footer_newsletter_enable %} medium-up--one-half{% else %} text-center{% endif %}">
+        {%- assign footer_linklist_two = section.settings.footer_linklist_two -%}
+        {% if linklists[footer_linklist_two].links.size > 0 %}
+          <ul class="site-footer__linklist{% unless section.settings.footer_newsletter_enable %} site-footer__linklist--center{% endunless %}">
+            {% for link in linklists[footer_linklist_two].links %}
+              <li class="site-footer__linklist-item">
+                <a href="{{ link.url }}">{{ link.title }}</a>
+              </li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+      </div>
+
       {% if social_icons %}
         <div class="grid__item{% if section.settings.footer_newsletter_enable %} medium-up--one-half{% else %} text-center{% endif %}">
-          <ul class="list--inline site-footer__social-icons social-icons">
+          <ul class="list--inline site-footer__social-icons social-icons large--one-fifth ">
             {% if settings.social_facebook_link != blank %}
               <li>
                 <a class="social-icons__link" href="{{ settings.social_facebook_link | escape }}" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'Facebook' }}">
@@ -35,7 +47,7 @@
             {% if settings.social_twitter_link != blank %}
               <li>
                 <a class="social-icons__link" href="{{ settings.social_twitter_link | escape }}" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'Twitter' }}">
-                  {% include 'icon-twitter' %}
+                  {% include 'icon-instagram' %}
                 </a>
               </li>
             {% endif %}
@@ -47,13 +59,7 @@
                 </a>
               </li>
             {% endif %}
-            {% if settings.social_instagram_link != blank %}
-              <li>
-                <a class="social-icons__link" href="{{ settings.social_instagram_link | escape }}" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'Instagram' }}">
-                  {% include 'icon-instagram' %}
-                </a>
-              </li>
-            {% endif %}
+
             {% if settings.social_tumblr_link != blank %}
               <li>
                 <a class="social-icons__link" href="{{ settings.social_tumblr_link | escape }}" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'Tumblr' }}">
@@ -87,6 +93,18 @@
             {% endif %}
 
           </ul>
+
+          <div id="copyright" class="newsletter large--two-sixths">
+
+              <div id="ucemail_pnlSignUp" onkeypress="javascript:return WebForm_FireDefaultButton(event, 'ucemail_imgEmailSignUp')">
+                  <input type="text" placeholder="Email Address" size="16" class="textbox"><input type="submit" id="ucemail_imgEmailSignUp" class="joinbutton" >
+              </div>
+          </div>
+
+          <div class="rights large--two-fifths ">
+              <a href="mailto:info@industryofallnations.com">info@industryofallnations.com</a>
+              <p>© 2017 IOAN </p>
+          </div>
         </div>
       {% endif %}
 
@@ -114,7 +132,6 @@
           {% endif %}
         </div>
       </div>
-    </div>
     {% if social_icons and section.settings.footer_newsletter_enable and section.settings.show_payment_icons %}
       <div class="site-footer__copyright--bottom">
       </div>
@@ -133,18 +150,7 @@
       {% endif %}
     </div>
 
-    <div class="grid__item{% if section.settings.footer_newsletter_enable and section.settings.footer_linklist != blank %} medium-up--one-quarter{% elsif section.settings.footer_linklist == blank and section.settings.footer_newsletter_enable %} medium-up--one-half{% else %} text-center{% endif %}">
-      {%- assign footer_linklist_two = section.settings.footer_linklist_two -%}
-      {% if linklists[footer_linklist_two].links.size > 0 %}
-        <ul class="site-footer__linklist{% unless section.settings.footer_newsletter_enable %} site-footer__linklist--center{% endunless %}">
-          {% for link in linklists[footer_linklist_two].links %}
-            <li class="site-footer__linklist-item">
-              <a href="{{ link.url }}">{{ link.title }}</a>
-            </li>
-          {% endfor %}
-        </ul>
-      {% endif %}
-    </div>
+
 
   </div>
 </div>

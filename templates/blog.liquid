@@ -6,7 +6,7 @@
 
 {% endcomment %}
 
-{% paginate blog.articles by 5 %}
+{% paginate blog.articles by 4 %}
 
 
 {% comment %}
@@ -14,10 +14,13 @@
   You can change layouts or styles by checking if current_tags is true.
 {% endcomment %}
 
-  <div class="grid__item large--one-quarter">
+<div class="wrapper">
+
+
+{% comment %}<div class="grid__item large--one-quarter">
     {% include 'blog-sidebar' %}
-  </div>
-  <div class="grid__item large--three-quarters">
+  </div>  {% endcomment %}
+  <div class="grid--full ">
 
     {% comment %}
       Loop through each article in your blog. This is limited to what you set for pagination above.
@@ -28,10 +31,10 @@
 
     {% for article in blog.articles %}
 
-      <div class="article">
+      <div class="article grid__item large--one-half item medium--one-half">
 
         <h2><a href="{{ article.url }}">{{ article.title }}</a></h2>
-        {% capture author %}<strong>{{ article.author }}</strong>{% endcapture %}
+        {% capture author %}{{ article.author }}{% endcapture %}
         {% capture date %}<time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: format: 'month_day_year' }}</time>{% endcapture %}
         <p>{{ 'blogs.article.author_on_date_html' | t: author: author, date: date }}</p>
 
@@ -49,7 +52,7 @@
           {% if article.excerpt.size > 0 %}
             {{ article.excerpt }}
           {% else %}
-            <p>{{ article.content | strip_html | truncatewords: 100 }}</p>
+            <p>{{ article.content | strip_html | truncatewords: 50 }}</p>
           {% endif %}
         </div>
 
@@ -77,6 +80,7 @@
     {% endif %}
 
   </div>
+</div>
 
 
 

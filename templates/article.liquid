@@ -19,11 +19,16 @@
 {% if comment and comment.created_at %}
   {% assign number_of_comments = article.comments_count | plus: 1 %}
 {% endif %}
+<div class="wrapper">
 
 
 <div class="grid">
-
-  <article class="grid__item large--three-quarters post" itemscope itemtype="http://schema.org/Article">
+  {% comment %}
+  <div class="grid__item large--one-quarter">
+    {% include 'blog-sidebar' %}
+  </div>
+  {% endcomment %}
+  <article class="grid__item  post" itemscope itemtype="http://schema.org/Article">
 
     <header class="section-header">
       <div class="section-header__left">
@@ -159,11 +164,6 @@
 
   </article>
 
-% if blog.title == 'Industry of All Nations' %}
-  <aside class="grid__item large--one-quarter" role="complementary">
-    {% include 'blog-sidebar' %}
-  </aside>
-  {% else %}
 
-  {% endif %}
+</div>
 </div>
