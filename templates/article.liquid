@@ -19,10 +19,10 @@
 {% if comment and comment.created_at %}
   {% assign number_of_comments = article.comments_count | plus: 1 %}
 {% endif %}
+
 <div class="wrapper">
 
 
-<div class="grid">
   {% comment %}
   <div class="grid__item large--one-quarter">
     {% include 'blog-sidebar' %}
@@ -32,7 +32,7 @@
 
     <header class="section-header">
       <div class="section-header__left">
-        <h1>{{ article.title }}</h1>
+        <h3>{{ article.title }}</h3>
         {% capture author %}<strong>{{ article.author }}</strong>{% endcapture %}
         {% capture date %}<time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: format: 'month_day_year' }}</time>{% endcapture %}
         <p>{{ 'blogs.article.author_on_date_html' | t: author: author, date: date }}</p>
@@ -67,10 +67,10 @@
         {% endif %}
       </p>
     {% endif %}
-
+<!-- 
     {% if blog.comments_enabled? %}
 
-      <h3 class="h3">{{ 'blogs.comments.with_count' | t: count: number_of_comments }}</h3>
+      <h4 >{{ 'blogs.comments.with_count' | t: count: number_of_comments }}</h4>
 
 
       {% comment %}
@@ -133,7 +133,6 @@
 
               {{ form.errors | default_errors }}
 
-              <div class="grid">
 
                 <div class="grid__item large--one-half">
                   <label for="CommentAuthor" class="hidden-label">{{ 'blogs.comments.name' | t }}</label>
@@ -148,7 +147,7 @@
                   <textarea name="comment[body]" id="CommentBody" class="input-full{% if form.errors contains 'body' %} error{% endif %}" placeholder="{{ 'blogs.comments.message' | t }}">{{ form.body }}</textarea>
                 </div>
 
-              </div>
+
 
               {% if blog.moderated? %}
                 <p>{{ 'blogs.comments.moderated' | t }}</p>
@@ -159,11 +158,10 @@
           </div>
 
         </div>
-      {% endpaginate %}
+      {% endpaginate %} -->
     {% endif %}
 
   </article>
 
 
-</div>
 </div>

@@ -15,8 +15,8 @@
     <table class="cart-table full table--responsive">
       <thead class="cart__row cart__header-labels">
         <th colspan="2" class="text-center">{{ 'cart.label.product' | t }}</th>
-        <th class="text-center">{{ 'cart.label.price' | t }}</th>
-        <th class="text-center">{{ 'cart.label.quantity' | t }}</th>
+        <th class="text-left">{{ 'cart.label.price' | t }}</th>
+        <th class="text-left">{{ 'cart.label.quantity' | t }}</th>
         <th class="text-right">{{ 'cart.label.total' | t }}</th>
       </thead>
       <tbody>
@@ -36,8 +36,7 @@
                 {{ item.product.title }}
               </a>
               {% unless item.variant.title contains 'Default' %}
-                <br>
-                <small>{{ item.variant.title }}</small>
+                <p>Size {{ item.variant.title }}</p>
               {% endunless %}
 
               {% if settings.cart_vendor_enable %}
@@ -75,7 +74,7 @@
               </a>
             </td>
             <td data-label="{{ 'cart.label.price' | t }}">
-              <span class="h3">
+              <span >
                 {{ item.price | money }}
               </span>
             </td>
@@ -125,7 +124,7 @@
   {% comment %}
     The cart is empty
   {% endcomment %}
-  <h2>{{ 'cart.general.title' | t }}</h2>
+  <h3>{{ 'cart.general.title' | t }}</h3>
   <p>{{ 'cart.general.empty' | t }}</p>
   <p>{{ 'cart.general.continue_browsing_html' | t }}</p>
 {% endif %}

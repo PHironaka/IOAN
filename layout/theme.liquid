@@ -159,9 +159,23 @@
       <div class="wrapper">
 
                         <a href="/cart" class="site-header__cart">
-                          <span>Cart</span>{% if cart.item_count > 0 %}  <span>({{ cart.item_count }})</span>  {% endif %}
+                          <span>Cart</span>{% if cart.item_count > 0 %}  <span>({{ cart.item_count }})</span>  {% else %}<span>(0)</span> {% endif %}
 
                         </a>
+
+
+{% if shop.customer_accounts_enabled %}
+  {% if customer  %}
+    <a href="/account" id="customer_login_link">{{customer.name}}</a>
+  {% else %}
+    {{ 'Sign in' | customer_login_link }}
+    <!-- {% if shop.customer_accounts_optional %}
+      <span>or</span>
+      {{ 'Create an account' | customer_register_link }}
+    {% endif %} -->
+  {% endif %}
+{% endif %}
+
 
         <div class="grid--full grid--table">
 
@@ -1034,7 +1048,7 @@
 
             <li><!--Category: FOR LADIES-->
               <div class="cate-name">
-                <a class="link" href="#for-ladies">Featured Retailers</a>
+                <a class="link" href="#for-ladies">Shops</a>
               </div>
               <ul class="cate-list">
                 <li><a href="https://pilgrimsurfsupply.com/" target="_blank">Pilgrim Surf + Supply</a></li>
@@ -1047,17 +1061,12 @@
             </li>
 
             <li class="cate-featured">
-              <h4>1121 Abbot Kinney Los Angeles</h4>
 
               <img class="featured-thumbnail" src="https://cdn.shopify.com/s/files/1/2140/7529/collections/IOAN_Store-84_grande.jpg?v=1504107972" alt="">
 
             </li>
             <!--Sub-menu category: FEATURED-->
-            <li class="cate-featured">
-              <h4>523 Hayes St. San Francisco</h4>
-              <img class="featured-thumbnail" src="https://cdn.shopify.com/s/files/1/2140/7529/collections/IOAN_Store-84_grande.jpg?v=1504107972" alt="">
 
-            </li>
           </div>
 
           </ul>
@@ -1079,7 +1088,7 @@
                 <div class="site-header__icons-wrapper">
 
 
-                  {% if shop.customer_accounts_enabled %}
+                  <!-- {% if shop.customer_accounts_enabled %}
                     {% if customer %}
                       <a href="/account" class="site-header__account">
                         {% include 'icon-login' %}
@@ -1091,7 +1100,7 @@
                         <span class="icon__fallback-text">{{ 'layout.customer.log_in' | t }}</span>
                       </a>
                     {% endif %}
-                  {% endif %}
+                  {% endif %} -->
 
 
 
@@ -1182,28 +1191,7 @@
     Documentation:
       - http://shopify.com/timber#ajax-cart
   {% endcomment %}
-  {% if settings.ajax_cart_method == "drawer" %}
-    {{ 'handlebars.min.js' | asset_url | script_tag }}
-    {% include 'ajax-cart-template' %}
-    {{ 'ajax-cart.js' | asset_url | script_tag }}
-    <script>
-      jQuery(function($) {
-        ajaxCart.init({
-          formSelector: '#AddToCartForm',
-          cartContainer: '#CartContainer',
-          addToCartSelector: '#AddToCart',
-          cartCountSelector: '#CartCount',
-          cartCostSelector: '#CartCost',
-          moneyFormat: {{ shop.money_format | json }}
-        });
-      });
 
-      jQuery(document.body).on('afterCartLoad.ajaxCart', function(evt, cart) {
-        // Bind to 'afterCartLoad.ajaxCart' to run any javascript after the cart has loaded in the DOM
-        timber.RightDrawer.open();
-      });
-    </script>
-  {% endif %}
 
 </body>
 </html>

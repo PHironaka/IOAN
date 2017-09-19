@@ -34,9 +34,18 @@
             {% include 'image-style' with image: block.settings.image, width: max_height, height: max_height, small_style: true, wrapper_id: wrapper_id, img_id: img_id %}
             <div class="feature-row__image-wrapper js">
 
-
                      <img  class="hero--medium" src="{{ block.settings.image | img_url: 'master' }}"/>
+                     <div class="wrapper">
 
+
+                       {% if block.settings.button_label != blank and block.settings.button_link != blank %}
+                         <a class="hero--copy" href="{{ block.settings.button_link }}" class="btn btn--secondary btn--small">
+                           {{ block.settings.button_label | escape }} ↳
+                         </a>
+                       {% endif %}
+
+
+                       </div>
             </div>
             <noscript>
               <!-- <p>

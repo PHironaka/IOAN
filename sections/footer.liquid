@@ -22,31 +22,87 @@
 
 
       <div class="grid__item{% if section.settings.footer_newsletter_enable and section.settings.footer_linklist != blank %} medium-up--one-quarter{% elsif section.settings.footer_linklist == blank and section.settings.footer_newsletter_enable %} medium-up--one-half{% else %} text-center{% endif %}">
+        <div class="grid--full footer-content--area">
+
         {%- assign footer_linklist_two = section.settings.footer_linklist_two -%}
         {% if linklists[footer_linklist_two].links.size > 0 %}
-          <ul class="site-footer__linklist{% unless section.settings.footer_newsletter_enable %} site-footer__linklist--center{% endunless %}">
+          <ul class="site-footer__linklist large--two-tenths  {% unless section.settings.footer_newsletter_enable %} site-footer__linklist--center{% endunless %}">
             {% for link in linklists[footer_linklist_two].links %}
               <li class="site-footer__linklist-item">
+
                 <a href="{{ link.url }}">{{ link.title }}</a>
               </li>
             {% endfor %}
+
           </ul>
+          <div class="latest-collection large--eight-tenths ">
+
+            {% for product in collections.Mens.products limit: 3 %}
+            {% unless grid_item_width %}
+              {% assign grid_item_width = 'large--one-third item medium--one-half' %}
+            {% endunless %}
+
+            {% comment %}
+              Check if the product is on sale and set a variable to be used below.
+            {% endcomment %}
+            {% assign on_sale = false %}
+            {% if product.compare_at_price > product.price %}
+              {% assign on_sale = true %}
+            {% endif %}
+
+            {% comment %}
+              Check if the product is sold out and set a variable to be used below.
+            {% endcomment %}
+            {% assign sold_out = true %}
+            {% if product.available %}
+              {% assign sold_out = false %}
+            {% endif %}
+
+            <div class="grid__item {{ grid_item_width }}">
+
+              {% comment %}
+                Link to your product with the 'within: collection' filter for the link to be aware of the collection.
+                This allows you to create collection-based navigation on the product page.
+
+                Results of using 'within: collection':
+                - Instead of a URL with /products/product-handle
+                  you would get /collections/collection-handle/products/product-handle
+
+                For more info on navigation within a collection
+                  - http://docs.shopify.com/support/your-store/collections/how-to-navigate-within-a-collection
+
+              {% endcomment %}
+              <a href="{{ product.url | within: collection }}" class="grid__image">
+                <img src="{{ product.featured_image.src | img_url: 'large' }}" alt="{{ product.featured_image.alt | escape }}">
+              </a>
+
+              <p class="h6">
+                <a href="{{ product.url | within: collection }}">{{ product.title }}</a>
+              </p>
+
+            </div>
+
+
+            {% endfor %}
+          </div>
         {% endif %}
       </div>
+    </div>
+
 
       {% if social_icons %}
         <div class="grid__item{% if section.settings.footer_newsletter_enable %} medium-up--one-half{% else %} text-center{% endif %}">
           <ul class="list--inline site-footer__social-icons social-icons large--one-fifth ">
             {% if settings.social_facebook_link != blank %}
               <li>
-                <a class="social-icons__link" href="{{ settings.social_facebook_link | escape }}" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'Facebook' }}">
+                <a class="social-icons__link" target="_blank" href="{{ settings.social_facebook_link | escape }}" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'Facebook' }}">
                   {% include 'icon-facebook' %}
                 </a>
               </li>
             {% endif %}
             {% if settings.social_twitter_link != blank %}
               <li>
-                <a class="social-icons__link" href="{{ settings.social_twitter_link | escape }}" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'Twitter' }}">
+                <a class="social-icons__link" target="_blank" href="{{ settings.social_twitter_link | escape }}" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'Twitter' }}">
                   {% include 'icon-instagram' %}
                 </a>
               </li>

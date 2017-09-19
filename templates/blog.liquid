@@ -5,8 +5,8 @@
   Don't forget to close the tag after your loop.
 
 {% endcomment %}
+{% paginate blog.articles by 10 %}
 
-{% paginate blog.articles by 4 %}
 
 
 {% comment %}
@@ -29,49 +29,62 @@
         - http://docs.shopify.com/themes/liquid-variables/article
     {% endcomment %}
 
-    {% for article in blog.articles %}
+    {% for article in blog.articles by 3%}
 
-      <div class="article grid__item large--one-half item medium--one-half">
+    {% if forloop.first == true %}
+    {% if article.image %}
 
-        <h2><a href="{{ article.url }}">{{ article.title }}</a></h2>
-        {% capture author %}{{ article.author }}{% endcapture %}
-        {% capture date %}<time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: format: 'month_day_year' }}</time>{% endcapture %}
-        <p>{{ 'blogs.article.author_on_date_html' | t: author: author, date: date }}</p>
+      <div class="article grid__item hero-blog--image large--seven-twelfths ">
+          {{ article | img_url: '1024x1024' | img_tag: article.title }}
+      </div>
 
+      <div class="article grid__item hero-blog--content large--five-twelfths">
+          <h2><a href="{{ article.url }}">{{ article.title }}</a></h2>
+          <time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: format: 'month_day_year' }}</time>
+        <p>by {{ article.author }}</p>
+          <div class="rte">
+              <p>{{ article.content | strip_html | truncatewords: 80 }}</p>
+          </div>
+
+      </div>
+      {% endif %}
+
+
+      {% else %}
+
+        <div class="article grid__item large--two-sixths blog--posts item medium--one-half">
         {% if article.image %}
-          <a class="article__featured-image" href="{{ article.url }}">
-            {{ article | img_url: '1024x1024' | img_tag: article.title }}
-          </a>
+        <a class="article__featured-image" href="{{ article.url }}">
+          {{ article | img_url: '1024x1024' | img_tag: article.title }}
+        </a>
         {% endif %}
+        <h2><a href="{{ article.url }}">{{ article.title }}</a></h2>
 
         {% comment %}
           Add a surrounding div with class 'rte' to anything that will come from the rich text editor.
           Since this is just a listing page, you can either use the excerpt or truncate the full article.
         {% endcomment %}
         <div class="rte">
-          {% if article.excerpt.size > 0 %}
-            {{ article.excerpt }}
-          {% else %}
             <p>{{ article.content | strip_html | truncatewords: 50 }}</p>
-          {% endif %}
         </div>
 
         {% comment %}
           Show off meta information like number of comments and tags.
         {% endcomment %}
         <ul class="inline-list">
-
-
           {% include 'tags-article' %}
         </ul>
-
-        <p><a href="{{ article.url }}">{{ 'blogs.article.read_more' | t }} &rarr;</a></p>
+        <p>
+          <a href="{{ article.url }}">{{ 'blogs.article.read_more' | t }} &rarr;</a>
+        </p>
 
       </div>
 
-      {% unless forloop.last %}{% endunless %}
+      {% endif %}
 
-    {% endfor %}
+      {% endfor %}
+
+
 
     {% if paginate.pages > 1 %}
       <div class="pagination">
@@ -80,9 +93,6 @@
     {% endif %}
 
   </div>
-</div>
-
-
-
+  </div>
 
 {% endpaginate %}
